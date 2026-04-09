@@ -11,7 +11,7 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # 1. Extract video ID from YouTube URL
 def extract_video_id(url):
     patterns = [
-        r"?:v|\/)([0-9A-Za-z_-]{11}).*",
+        r"(?:v|\/)([0-9A-Za-z_-]{11}).*",
         r"youtu\.be\/([0-9A-Za-z_-]{11})",
         r"shorts\/([0-9A-Za-z_-]{11})"
     ]
@@ -42,7 +42,7 @@ def get_transcript(video_id):
         print(f"Error fetching transcript: {e}")
         return None
     
-# 3. Splitte transcript into chunks
+# 3. Split transcript into chunks
 def split_text(text, chunk_size=150):
     words = text.split()
     return [
@@ -58,7 +58,7 @@ def generate_embeddings(text_list):
     )
 
     # Convert the list of embeddings to a NumPy array
-    return np.array(item.embedding for item in response.data).astype("float32")
+    return np.array([item.embedding for item in response.data]).astype("float32")
 
 # 5. Create FAISS index
 def build_faiss_index(embeddings):
