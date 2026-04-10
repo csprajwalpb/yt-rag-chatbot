@@ -3,7 +3,7 @@ from openai import OpenAI
 import re
 import faiss
 import numpy as np
-from config import OPENAI_API_KEY, EMBEDDING_MODEL, LLM_MODEL
+from backend.config import OPENAI_API_KEY, EMBEDDING_MODEL, LLM_MODEL
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
