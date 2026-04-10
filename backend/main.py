@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from backend.rag_utils import *
-from backend.rag_utils import extract_video_id
+from rag_utils import *
+from rag_utils import extract_video_id
 from fastapi.middleware.cors import CORSMiddleware
 
 # Initialize FastAPI app
