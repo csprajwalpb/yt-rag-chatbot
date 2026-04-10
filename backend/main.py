@@ -1,5 +1,3 @@
-from pydantic.v1 import BaseModel
-
 from fastapi import FastAPI
 from rag_utils import *
 from rag_utils import extract_video_id
@@ -21,29 +19,23 @@ app.add_middleware(
 chunks = []
 index = None
 
-class VideoRequest(BaseModel):
-    url: str
-
-class QuestionRequest(BaseModel):
-    question: str
-
 # Endpoint to process YouTube video URL
 @app.post("/process_video")
-def process_video(request: VideoRequest):
+def process_video(url: str):
     global chunks, index
 
     # Extract video ID
-    video_id = extract_video_id(request.url)
+    video_id = extract_video_id(url)
     if not video_id:
         return {"error": "Invalid YouTube URL"}
 
     # Fetch transcript
-    transcript = get_transcript(video_id)
-    if transcript is None:
+    text = get_transcript(video_id)
+    if text is None:
         return {"error": "Could not fetch transcript"}
 
     # Split transcript, generate embeddings, and build FAISS index
-    chunks = split_text(transcript)
+    chunks = split_text(text)
     embeddings = generate_embeddings(chunks)
     index = build_faiss_index(embeddings)
 
@@ -51,12 +43,11 @@ def process_video(request: VideoRequest):
 
 # 2. Endpoint to handle user queries
 @app.post("/ask")
-def ask(request: QuestionRequest):
+def ask(question: str):
     if index is None:
         return {"error": "No video processed yet"}
     
     try:
-        question = request.question
         # Generate embedding for the question
         query_embedding = generate_embeddings([question])[0]
 

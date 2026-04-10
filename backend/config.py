@@ -2,12 +2,8 @@
 import os
 from dotenv import load_dotenv
 
-# Get absolute path to backend/.env
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-env_path = os.path.join(BASE_DIR, ".env")
-
 # Load environment variables from .env file
-load_dotenv(dotenv_path=env_path)
+load_dotenv()
 
 # Get the OpenAI API key from environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")

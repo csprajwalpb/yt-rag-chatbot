@@ -1,18 +1,18 @@
 import axios from "axios";
 
 //Base URL for backend API
-const api = "http://127.0.0.1:8000"
+const API = "http://127.0.0.1:8000"
 
 // Process video by sending URL to backend
 export const processVideo = async (url) => {
-  return await axios.post(`${api}/process_video`, {
-    url: url 
+  return axios.post(`${API}/process_video`, null, {
+    params: {url} 
   })
 }
 
 // Answer Question
 export const askQuestion = async (question) => {
-  return await axios.post(`${api}/ask`, {
-    question: question
+  return axios.post(`${API}/ask`, null, {
+    params: {question}
   })
 }

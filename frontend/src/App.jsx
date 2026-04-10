@@ -16,7 +16,10 @@ function App() {
 
   //handle video processing
   const handleProcessVideo = async () => {
-    if (!url) return alert('Please enter a YouTube URL')
+    if (!url) { 
+      alert('Please enter a YouTube URL') 
+      return
+    }
 
     setLoading(true)
     try{
@@ -56,41 +59,46 @@ function App() {
 
 
 return(
-  <div>
+  <div className="min-h-screen bg-gray-100 flex justify-center p-6">
     {/*Chatbot UI*/}
-    <div>
-      <h1>Youtube RAG Chatbot</h1>
+    <div className="w-full max-w-3xl bg-white shadow-lg rounded-xl p-6">
+      <h1 className="text-2xl font-bold text-center mb-6">Youtube RAG Chatbot</h1>
       {/*Video URL input*/}
-      <div>
+      <div className="flex gap-3 mb-6">
         <input
           type="text"
           placeholder="Enter YouTube URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
+          className="flex-1 border p-2 rounded"
         />
-        <button onClick={handleProcessVideo}>
-          {loading ? 'Processing...' : 'Process Video'}
+        <button onClick={handleProcessVideo}
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          {loading ? 'Processing Video...' : 'Process'}
         </button>
       </div>
       {/*Question input*/}
-      <div>
+      <div className="flex gap-3 mb-6">
         <input
           type="text"
           placeholder="Ask a question about the video"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
+          className="flex-1 border p-2 rounded"
         />
-        <button onClick={handleAskQuestion} disabled={loading}>
+        <button onClick={handleAskQuestion} 
+        disabled={loading}
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
           {loading ? 'Thinking...' : 'Ask'}
         </button>
       </div>
 
       {/*Chat Display*/}
-      <div>
+      <div className="space-y-4 max-h-[400px] overflow-y-auto">
         {chat.map((entry, index) => (
-          <div key={index}>
-            <p><strong>You:</strong> {entry.q}</p>
-            <p><strong>AI:</strong> {entry.a}</p>
+          <div key={index} className="border rounded p-4">
+            <p className="font-semibold text-gray-700"><strong>You:</strong> {entry.q}</p>
+            <p className="text-blue-600 mt-2"><strong>AI:</strong> {entry.a}</p>
           </div>
         ))}
       </div>
