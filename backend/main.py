@@ -24,6 +24,9 @@ index = None
 def process_video(url: str):
     global chunks, index
 
+    chunks = []
+    index = None
+
     # Extract video ID
     video_id = extract_video_id(url)
     if not video_id:

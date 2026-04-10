@@ -24,7 +24,12 @@ function App() {
     setLoading(true)
     try{
       //call api to process video
-      await processVideo(url)
+      const res = await processVideo(url)
+
+      if (res.data.error) {
+        alert(res.data.error)
+        return
+      }
       alert('Video processed successfully! You can now ask questions.')
     }
     catch{
@@ -59,36 +64,44 @@ function App() {
 
 
 return(
-  <div className="min-h-screen bg-gray-100 flex justify-center p-6">
+  <div className="min-h-screen bg-gradient-to-br from-slate-900 
+  to-slate-800 flex justify-center items-center p-4">
+
     {/*Chatbot UI*/}
-    <div className="w-full max-w-3xl bg-white shadow-lg rounded-xl p-6">
-      <h1 className="text-2xl font-bold text-center mb-6">Youtube RAG Chatbot</h1>
+    <div className="w-full max-w-3xl h-[90vh] bg-white/10 backdrop-blur-lg 
+    border border-white/20 rounded-2xl shadow-xl flex flex-col overflow-hidden">
+
+    <div className="p-4 border-b border-white/20 text-center">
+      <h1 className="text-xl font-semibold text-white">Youtube RAG Chatbot</h1>
+      </div>
+
       {/*Video URL input*/}
-      <div className="flex gap-3 mb-6">
+      <div className="p-4 flex gap-2 border-b border-white/10">
         <input
           type="text"
           placeholder="Enter YouTube URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 border p-2 rounded"
+          className="flex-1 p-2 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
         />
         <button onClick={handleProcessVideo}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-white">
           {loading ? 'Processing Video...' : 'Process'}
         </button>
       </div>
+
       {/*Question input*/}
-      <div className="flex gap-3 mb-6">
+      <div className="p-4 border-t border-white/10 flex gap-2">
         <input
           type="text"
           placeholder="Ask a question about the video"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          className="flex-1 border p-2 rounded"
+          className="flex-1 p-2 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
         />
         <button onClick={handleAskQuestion} 
         disabled={loading}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+        className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-white">
           {loading ? 'Thinking...' : 'Ask'}
         </button>
       </div>
