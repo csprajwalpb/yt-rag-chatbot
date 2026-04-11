@@ -22,7 +22,7 @@ A full-stack AI-powered web application that enables users to process YouTube vi
   Efficient vector-based retrieval of relevant transcript chunks
 
 *  **OpenAI Integration**
-  Uses LLMs for generating natural, context-aware responses
+  Uses LLMs for generating natural, context-aware responses.
 
 ---
 
